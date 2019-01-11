@@ -40,6 +40,7 @@ The Background GIF was download ([gifer](https://gifer.com/en))
 * [Gifu](https://github.com/kaishin/Gifu) - UI
 * [BetterSegmentedControl](https://github.com/gmarm/BetterSegmentedControl) - UI
 * [RealmSwift](https://realm.io/kr/docs/swift/latest/) - Database
+* [iOS Weather App] - Weather cell
 * [SwiftHub](https://github.com/khoren93/SwiftHub) - README document format 
 ## License
 MIT License.
