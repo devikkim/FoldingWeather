@@ -10,6 +10,7 @@
 		705271F421E707AD00CA9495 /* night.gif in Resources */ = {isa = PBXBuildFile; fileRef = 705271F121E707AD00CA9495 /* night.gif */; };
 		705271F521E707AD00CA9495 /* day.gif in Resources */ = {isa = PBXBuildFile; fileRef = 705271F221E707AD00CA9495 /* day.gif */; };
 		705271F621E707AD00CA9495 /* night2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 705271F321E707AD00CA9495 /* night2.gif */; };
+		705791E921E873460080A190 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 705791E821E873460080A190 /* API.swift */; };
 		70610C7421E2DC0A00D1B1BB /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70610C7321E2DC0A00D1B1BB /* Coordinate.swift */; };
 		70610C7E21E2E09B00D1B1BB /* RealmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70610C7D21E2E09B00D1B1BB /* RealmTests.swift */; };
 		70610C8021E2F26700D1B1BB /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70610C7F21E2F26700D1B1BB /* RealmManager.swift */; };
@@ -75,6 +76,7 @@
 		705271F121E707AD00CA9495 /* night.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = night.gif; sourceTree = "<group>"; };
 		705271F221E707AD00CA9495 /* day.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = day.gif; sourceTree = "<group>"; };
 		705271F321E707AD00CA9495 /* night2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = night2.gif; sourceTree = "<group>"; };
+		705791E821E873460080A190 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		70610C7321E2DC0A00D1B1BB /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		70610C7D21E2E09B00D1B1BB /* RealmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTests.swift; sourceTree = "<group>"; };
 		70610C7F21E2F26700D1B1BB /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				70C5F56621DF464C0043D9E6 /* WeatherJSONParser.swift */,
+				705791E821E873460080A190 /* API.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				70C5F58321DF464C0043D9E6 /* DailyWeather.swift in Sources */,
 				70610C8621E31C0200D1B1BB /* DeviceCase.swift in Sources */,
 				70C5F57F21DF464C0043D9E6 /* LocationCase.swift in Sources */,
+				705791E921E873460080A190 /* API.swift in Sources */,
 				70C5F57E21DF464C0043D9E6 /* WeatherJSONParser.swift in Sources */,
 				706DA23F21E5CFC600A39252 /* UITabBar+size.swift in Sources */,
 				70C5F58921DF464C0043D9E6 /* WeatherViewModel.swift in Sources */,
