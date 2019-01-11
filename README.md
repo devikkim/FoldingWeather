@@ -45,6 +45,13 @@ API.setDarkSkyAPIKey(secureKey: "Darksky Secure Key")
 * All icons is Unicode, the default icons supported by Apple.
 * The Background GIF was download ([gifer](https://gifer.com/en))
 
+## Motivated
+The UI of my APP is similar to that of an Apple app.
+Because it is based on the Apple app.
+
+<img alt="Apple_App" src="/References/AppleWeatherApp.jpg?raw=true" width="290">&nbsp;
+<img alt="My_App" src="/References/MyWeatherApp.png?raw=true" width="290">&nbsp;
+
 ## References
 * [SnapKit](https://github.com/SnapKit/SnapKit) - Programmatically UI
 * [RxSwift](https://github.com/ReactiveX/RxSwift)
