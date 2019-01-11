@@ -37,19 +37,8 @@ class WeatherTableViewController: UIViewController {
                                                         .indicatorViewBackgroundColor(.clear)])
   
   
-  // Folding-Cells height information
-  var cellHeights: [[CGFloat]] = [
-    // section 0 : user location
-    [WeatherCellInformation.cellSize.closeHeight],
-    // section 1 : searched location
-    []
-  ]
-  
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-    
-    
-  }
+  // Folding-Cells height information cellHeights[0]: Section 1 , cellHeight[1]: Section 2
+  var cellHeights: [[CGFloat]] = [[WeatherCellInformation.cellSize.closeHeight], []]
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -57,6 +46,7 @@ class WeatherTableViewController: UIViewController {
     setUI()
     setBinding()
     
+    // Check Location Permission
     if !SPPermission.isAllow(.locationWhenInUse){
       SPPermission.Dialog.request(with: [.locationWhenInUse], on: self, delegate: self)
     }
@@ -100,21 +90,23 @@ extension WeatherTableViewController {
     
     // bind weathers with tableview items
     viewModel
-      .getWeathers
+      .weathers
       .observeOn(MainScheduler.instance)
       .bind(to: tableView.rx.items(dataSource: dataSource))
       .disposed(by: disposeBag)
     
     // bind weathers count with self.cellHeights
     viewModel
-      .getWeathers
+      .weathers
       .bind{ [unowned self] models in
         self.cellHeights[1] = [CGFloat](repeating: 116, count: models[1].items.count)
       }
       .disposed(by: disposeBag)
     
+    // bind delegate
     tableView.rx.setDelegate(self).disposed(by: disposeBag)
     
+    // bind segmentControl event
     segmentControl.rx.controlEvent(.valueChanged)
       .map { RealmDegreeManager.shared.update(Int(self.segmentControl.rx.base.index)) }
       .bind { self.viewModel.reload.onNext(()) }
@@ -217,11 +209,11 @@ extension WeatherTableViewController {
   }
   
   func persentInformationViewController(){
-    print("information")
+    // TODO: Imformation ViewController
   }
 }
 
-// TableView Delegate
+// TableView Delegate for Folding-Cell
 extension WeatherTableViewController: UITableViewDelegate {
   // custom section header
   func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {

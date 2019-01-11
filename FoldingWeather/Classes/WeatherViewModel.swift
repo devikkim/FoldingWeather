@@ -32,14 +32,14 @@ class WeatherViewModel{
   let delete: AnyObserver<Int>
   
   // for subscribe weather informations
-  let getWeathers: Observable<[SectionWeather]>
+  let weathers: Observable<[SectionWeather]>
   
   init() {
     let _reload = PublishSubject<Void>()
     reload = _reload.asObserver()
     
-    let _getWeathers = PublishSubject<[SectionWeather]>()
-    getWeathers = _getWeathers.asObservable()
+    let _weathers = PublishSubject<[SectionWeather]>()
+    weathers = _weathers.asObservable()
     
     let _insert = PublishSubject<LocationCase>()
     insert = _insert.asObserver()
@@ -60,7 +60,7 @@ class WeatherViewModel{
           self.userLocationSectionWeather = SectionWeather(header: "User Location", items: models.filter{$0.locationType == .user})
           self.searchLocationSectionWeather = SectionWeather(header: "Searched Location", items: models.filter{$0.locationType != .user})
           
-          _getWeathers.asObserver().onNext([self.userLocationSectionWeather, self.searchLocationSectionWeather])
+          _weathers.asObserver().onNext([self.userLocationSectionWeather, self.searchLocationSectionWeather])
       }, onError: {error in
         debugPrint("error : \(error)")
       })
@@ -108,7 +108,7 @@ class WeatherViewModel{
         self.searchLocationSectionWeather.items.remove(at: index)
         RealmCoordinateManager.shared.delete(index)
         
-        _getWeathers.asObserver().onNext([self.userLocationSectionWeather, self.searchLocationSectionWeather])
+        _weathers.asObserver().onNext([self.userLocationSectionWeather, self.searchLocationSectionWeather])
       }
       .disposed(by: disposeBag)
   }
