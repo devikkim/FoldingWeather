@@ -1,0 +1,85 @@
+PODS:
+  - Alamofire (4.8.0)
+  - Alamofire-SwiftyJSON (3.0.0):
+    - Alamofire (~> 4.5)
+    - SwiftyJSON (~> 4.0.0)
+  - BetterSegmentedControl (1.0.3)
+  - Differentiator (3.1.0)
+  - FoldingCell (4.0.2)
+  - Gifu (3.2.0)
+  - GoogleMaps/Base (2.7.0)
+  - GooglePlaces (2.7.0):
+    - GoogleMaps/Base (= 2.7.0)
+  - Realm (3.13.0):
+    - Realm/Headers (= 3.13.0)
+  - Realm/Headers (3.13.0)
+  - RealmSwift (3.13.0):
+    - Realm (= 3.13.0)
+  - RxAtomic (4.4.0)
+  - RxCocoa (4.4.0):
+    - RxSwift (~> 4.0)
+  - RxDataSources (3.1.0):
+    - Differentiator (~> 3.0)
+    - RxCocoa (~> 4.0)
+    - RxSwift (~> 4.0)
+  - RxSwift (4.4.0):
+    - RxAtomic (~> 4.4)
+  - SnapKit (4.0.1)
+  - SPPermission (2.4.8)
+  - SwiftyJSON (4.0.0)
+
+DEPENDENCIES:
+  - Alamofire-SwiftyJSON
+  - BetterSegmentedControl (~> 1.0)
+  - FoldingCell
+  - Gifu
+  - GooglePlaces
+  - RealmSwift
+  - RxCocoa (~> 4.0)
+  - RxDataSources (~> 3.0)
+  - RxSwift (~> 4.0)
+  - SnapKit (~> 4.0.0)
+  - SPPermission
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - Alamofire-SwiftyJSON
+    - BetterSegmentedControl
+    - Differentiator
+    - FoldingCell
+    - Gifu
+    - GoogleMaps
+    - GooglePlaces
+    - Realm
+    - RealmSwift
+    - RxAtomic
+    - RxCocoa
+    - RxDataSources
+    - RxSwift
+    - SnapKit
+    - SPPermission
+    - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
+  Alamofire-SwiftyJSON: 2b3649d57dc7bb2880fb8b86f8bb969397666916
+  BetterSegmentedControl: 4e3bd0bd517b0f6077c9e17f5663a01cff48e2c5
+  Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
+  FoldingCell: 352f0211a53f957b885a1b37d5ffa875da90bca5
+  Gifu: 7bcb6427457d85e0b4dff5a84ec5947ac19a93ea
+  GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
+  GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
+  Realm: 5edd2ee65406aef591a4f9895de5a3440e51b3d8
+  RealmSwift: be5ebc7930e37cd3376b41cec7f21984528aaa16
+  RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
+  RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
+  RxDataSources: a843bad90c29817f5923ec8163f4af2de084ceb3
+  RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
+  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  SPPermission: f9f1ef0474fe3830e58afd6f7922718060c95345
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
+
+PODFILE CHECKSUM: bd2977c9fdb2c58fce3da67c0c0a3e727722f4f3
+
+COCOAPODS: 1.5.3
