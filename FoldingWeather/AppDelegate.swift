@@ -23,8 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
     // Must set keys
-    API.setGoogleMapAPIKey(provideAPIKey: "AIzaSyBwhGTXkqMU4a7wLvVkgh7EfOwFDUBAo8g")
-    API.setDarkSkyAPIKey(secureKey: "0c28aa7763d8751cefdae9b8e6e89a97")
+    API.setGoogleMapAPIKey(provideAPIKey: "GOOGLE KEY")
+    API.setDarkSkyAPIKey(secureKey: "DARKSKY KEY")
 
     let tableVC = WeatherTableViewController()
     viewModel = WeatherViewModel()
