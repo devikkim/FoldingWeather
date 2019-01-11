@@ -35,15 +35,11 @@ extension LocationCase {
       
       let service = WeatherService(unit)
       
-      service.setUserSecretKey("0c28aa7763d8751cefdae9b8e6e89a97")
-      
       return service.getWeatherFrom(location: location, type: self)
       
     case .search(let location):
       
       let service = WeatherService(unit)
-      
-      service.setUserSecretKey("0c28aa7763d8751cefdae9b8e6e89a97")
       
       return service.getWeatherFrom(location: location, type: self)
     }

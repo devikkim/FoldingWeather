@@ -22,19 +22,19 @@ enum WeatherServiceError: Error {
 }
 
 class WeatherService {
-  private var key: String?
+  private static var key: String?
   private var unit: String
+  
+  static func setUserSecretKey(_ key: String){
+    self.key = key
+  }
   
   init(_ unit: Int) {
     self.unit = unit == 0 ? "si" : "us"
   }
   
-  func setUserSecretKey(_ key: String){
-    self.key = key
-  }
-  
   func getWeatherFrom(location:CLLocation, type: LocationCase) -> Observable<Weather>{
-    guard let secureKey = key else {
+    guard let secureKey = WeatherService.key else {
       return Observable.error(WeatherServiceError.doNotRegisterKey)
     }
     

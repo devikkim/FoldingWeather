@@ -21,9 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var viewModel: WeatherViewModel!
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    // set Google Service Key
-    GMSPlacesClient.provideAPIKey("AIzaSyBwhGTXkqMU4a7wLvVkgh7EfOwFDUBAo8g")
     
+    // Must set keys
+    API.setGoogleMapAPIKey(provideAPIKey: "Google Map API Key")
+    API.setDarkSkyAPIKey(secureKey: "Darksky Secure Key")
+
     let tableVC = WeatherTableViewController()
     viewModel = WeatherViewModel()
     
