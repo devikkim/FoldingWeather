@@ -9,7 +9,6 @@ Open source iOS Weather App written in RxSwift and MVVM architecture.
 <img alt="01_launch" src="/References/1.launch.gif?raw=true" width="290">&nbsp;
 <img alt="02_insert" src="/References/2.insert.gif?raw=true" width="290">&nbsp;
 <img alt="03_delete" src="/References/3.delete.gif?raw=true" width="290">&nbsp;
-<img alt="04_change_unit" src="/References/5.change_unit.gif?raw=true" width="290">&nbsp;
 
 ## Features
 - [x] Programmatically UI ([SnapKit](https://github.com/SnapKit/SnapKit))
