@@ -1,6 +1,6 @@
 # FoldingWeather
 
-Open source iOS Weather App written in RxSwift and MVVM architecture.
+Open source iOS Weather App written in RxSwift.
 
 ## Screenshots
 
