@@ -3,18 +3,75 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "closure #2 in WeatherViewModel.init():WeatherViewModel.swift">
+         contextName = "closure #4 in WeatherViewModel.init():WeatherViewModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.nowWeather">
-            </PersistentString>
-            <PersistentString
-               value = "self.nowWeather[1].locationType == model.locationType">
-            </PersistentString>
-            <PersistentString
-               value = "self.nowWeather[1]">
+               value = "realm.objects(Coordinates.self).first">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "WeatherService.getWeatherFrom(location:type:):WeatherService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "LanguageCase.systemCode.toString">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DomainTests.testWeatherParsing():DomainTests.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Bundle.main.path(forResource: &quot;WeatherTest&quot;, ofType: &quot;json&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AppDelegate.application(_:didFinishLaunchingWithOptions:):AppDelegate.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "window.bounds">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #3 in WeatherViewModel.init():WeatherViewModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "nowWeathers">
+            </PersistentString>
+            <PersistentString
+               value = "realm.objects(Coordinates.self)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Weather.init(from:):Weather.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "currently">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in WeatherService.getWeatherFrom(location:type:):WeatherService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static LocationType.== infix(_:_:):LocationType.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "l">
+            </PersistentString>
+            <PersistentString
+               value = "rhs.getLocation">
+            </PersistentString>
+            <PersistentString
+               value = "lhs.getLocation">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "WeatherViewController.tableView(_:didSelectRowAt:):WeatherViewController.swift">
       </ContextState>
       <ContextState
          contextName = "closure #5 in WeatherViewModel.init():WeatherViewModel.swift">
@@ -26,25 +83,6 @@
       </ContextState>
       <ContextState
          contextName = "closure #1 in closure #2 in WeatherViewModel.init():WeatherViewModel.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in WeatherService.getWeatherFrom(location:type:):WeatherService.swift">
-      </ContextState>
-      <ContextState
-         contextName = "RealmTests.testRealmInsert():RealmTests.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "list.count">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #4 in WeatherViewModel.init():WeatherViewModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "realm.objects(Coordinates.self).first">
-            </PersistentString>
-         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "closure #1 in closure #1 in closure #1 in WeatherService.getWeatherFrom(location:type:):WeatherService.swift">
@@ -68,48 +106,34 @@
                value = "address.last?.locality">
             </PersistentString>
             <PersistentString
-               value = "address.last?.name">
-            </PersistentString>
-            <PersistentString
                value = "address.last?.subAdministrativeArea">
             </PersistentString>
+            <PersistentString
+               value = "address.last?.name">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "static LocationType.== infix(_:_:):LocationType.swift">
+         contextName = "closure #2 in WeatherViewModel.init():WeatherViewModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "l">
+               value = "self.nowWeather">
             </PersistentString>
             <PersistentString
-               value = "rhs.getLocation">
+               value = "self.nowWeather[1]">
             </PersistentString>
             <PersistentString
-               value = "lhs.getLocation">
+               value = "self.nowWeather[1].locationType == model.locationType">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #3 in WeatherViewModel.init():WeatherViewModel.swift">
+         contextName = "RealmTests.testRealmInsert():RealmTests.swift">
          <PersistentStrings>
             <PersistentString
-               value = "nowWeathers">
-            </PersistentString>
-            <PersistentString
-               value = "realm.objects(Coordinates.self)">
+               value = "list.count">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "WeatherService.getWeatherFrom(location:type:):WeatherService.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "LanguageCase.systemCode.toString">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "WeatherViewController.tableView(_:didSelectRowAt:):WeatherViewController.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

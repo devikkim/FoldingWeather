@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
+import Domain
 
 class DailyWeatherView: UIView {
   lazy var rootStackView = UIStackView()
@@ -78,11 +79,19 @@ extension DailyWeatherView {
     }
   }
   
+  // old-version
   func setModel(_ model: DailyWeather) {
     dayLabel.text = model.day
     temperatureMaxLabel.text = model.temperatureMax
     temperatureMinLabel.text = model.temperatureMin
     iconLabel.text = model.icon.emoji
   }
-  
+
+  // new-version
+  func setNewModel(_ model: Domain.Daily.Data) {
+    dayLabel.text = model.time
+    temperatureMaxLabel.text = model.temperatureMax
+    temperatureMinLabel.text = model.temperatureMin
+    iconLabel.text = model.icon
+  }
 }

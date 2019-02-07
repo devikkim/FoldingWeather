@@ -22,21 +22,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
+    // old-version
     // Must set keys
     API.setGoogleMapAPIKey(provideAPIKey: "AIzaSyBwhGTXkqMU4a7wLvVkgh7EfOwFDUBAo8g")
-    API.setDarkSkyAPIKey(secureKey: "0c28aa7763d8751cefdae9b8e6e89a97")
+//    API.setDarkSkyAPIKey(secureKey: "0c28aa7763d8751cefdae9b8e6e89a97")
 
-    let tableVC = WeatherTableViewController()
-    viewModel = WeatherViewModel()
+//    window = UIWindow(frame: UIScreen.main.bounds)
     
-    tableVC.viewModel = viewModel
     
-    viewModel.reload.onNext(())
+//    let tableVC = WeatherTableViewController()
+//    viewModel = WeatherViewModel()
+//
+//    tableVC.viewModel = viewModel
+//
+//    viewModel.reload.onNext(())
     
-    window = UIWindow(frame: UIScreen.main.bounds)
-    window!.rootViewController = UINavigationController(rootViewController: tableVC)
-    window!.makeKeyAndVisible()
+//    window!.rootViewController = UINavigationController(rootViewController: tableVC)
+//    window!.makeKeyAndVisible()
     
+    // new-version
+    let window = UIWindow(frame: UIScreen.main.bounds)
+
+    Application.shared.configureMainInterface(in: window)
+
+    self.window = window
+    self.window!.makeKeyAndVisible()
     return true
   }
 

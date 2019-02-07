@@ -1,0 +1,76 @@
+{
+  "status": "ok",
+  "data": {
+      "aqi": 173,
+      "idx": 5508,
+      "attributions": [
+          {
+              "url": "http://www.airkorea.or.kr/",
+              "name": "South Air Korea Environment Corporation (대기오염실시간공개시스템)"
+          },
+          {
+              "url": "http://cleanair.seoul.go.kr/",
+              "name": "Seoul Clean Air Pollution Information (서울특별시 기후대기환경정보)"
+          },
+          {
+              "url": "https://waqi.info/",
+              "name": "World Air Quality Index Project"
+          }
+      ],
+      "city": {
+          "geo": [
+              37.566535,
+              126.9779692
+          ],
+          "name": "Seoul (서울)",
+          "url": "https://aqicn.org/city/seoul"
+      },
+      "dominentpol": "pm25",
+      "iaqi": {
+          "co": {
+              "v": 18.9
+          },
+          "h": {
+              "v": 49
+          },
+          "no2": {
+              "v": 60.9
+          },
+          "o3": {
+              "v": 9.6
+          },
+          "p": {
+              "v": 1020.5
+          },
+          "pm10": {
+              "v": 90
+          },
+          "pm25": {
+              "v": 173
+          },
+          "r": {
+              "v": 0.1
+          },
+          "so2": {
+              "v": 11.5
+          },
+          "t": {
+              "v": 4.5
+          },
+          "w": {
+              "v": 6.4
+          },
+          "wd": {
+              "v": 337.5
+          }
+      },
+      "time": {
+          "s": "2019-01-23 12:00:00",
+          "tz": "+09:00",
+          "v": 1548244800
+      },
+      "debug": {
+          "sync": "2019-01-23T12:23:42+09:00"
+      }
+  }
+}

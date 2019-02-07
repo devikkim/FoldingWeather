@@ -10,6 +10,7 @@ import UIKit
 import FoldingCell
 import RxSwift
 import RxCocoa
+import Domain
 
 class WeatherCell: FoldingCell {
   
@@ -27,23 +28,51 @@ class WeatherCell: FoldingCell {
   lazy var dailyStackView = UIStackView()
   
   @IBOutlet var containerViewHeightConstraint: NSLayoutConstraint!
-  
+
+//  old-version
   var model: Weather? {
+    get{
+      return nil
+    }
+
+    set(newVal) {
+      if let newModel = newVal {
+        self.foregroundTemperatureLabel.text = newModel.currentlyWeather.temperature
+        self.foregroundLocationLabel.text = newModel.currentlyWeather.location
+
+        self.containerTemperatureLabel.text = newModel.currentlyWeather.temperature
+        self.containerLocationLabel.text = newModel.currentlyWeather.location
+        self.containerSummeryLabel.text = newModel.currentlyWeather.summary
+
+        self.initHourlyWeatherViews(newModel.hourlyWeathers)
+        self.initDailyWeatherViews(newModel.dailyWeathers)
+
+        foregroundView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        containerView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+      }
+    }
+  }
+  
+  // new-version
+  var newModel: Domain.Weather? {
     get{
       return nil
     }
     
     set(newVal) {
       if let newModel = newVal {
-        self.foregroundTemperatureLabel.text = newModel.currentlyWeather.temperature
-        self.foregroundLocationLabel.text = newModel.currentlyWeather.location
+        self.foregroundTemperatureLabel.text = newModel.currently.temperature
+        self.foregroundLocationLabel.text = newModel.address
         
-        self.containerTemperatureLabel.text = newModel.currentlyWeather.temperature
-        self.containerLocationLabel.text = newModel.currentlyWeather.location
-        self.containerSummeryLabel.text = newModel.currentlyWeather.summary
+        self.containerTemperatureLabel.text = newModel.currently.temperature
+        self.containerLocationLabel.text = newModel.address
+        self.containerSummeryLabel.text = newModel.currently.summary
         
-        self.initHourlyWeatherViews(newModel.hourlyWeathers)
-        self.initDailyWeatherViews(newModel.dailyWeathers)
+//        self.initHourlyWeatherViews(newModel.hourly)
+//        self.initDailyWeatherViews(newModel.daily)
+        
+        self.initNewHourlyWeatherViews(newModel.hourly)
+        self.initNewDailyWeatherViews(newModel.daily)
         
         foregroundView.backgroundColor = UIColor(white: 0, alpha: 0.5)
         containerView.backgroundColor = UIColor(white: 0, alpha: 0.5)
@@ -96,14 +125,55 @@ class WeatherCell: FoldingCell {
 }
 
 extension WeatherCell {
+
+  // old-version
   func initHourlyWeatherViews(_ models: [HourlyWeather]){
     for subView in hourlyStackView.subviews {
       subView.removeFromSuperview()
     }
-    
+
     for model in models {
       let hourlyWeatherView = HourlyWeatherView()
       hourlyWeatherView.setModel(model)
+
+      self.hourlyStackView.addArrangedSubview(hourlyWeatherView)
+
+      hourlyWeatherView.snp.makeConstraints{
+        $0.width.greaterThanOrEqualTo(self.hourlyScrollView).multipliedBy(0.125)
+        $0.height.equalTo(self.hourlyScrollView)
+      }
+    }
+  }
+
+  func initDailyWeatherViews(_ models: [DailyWeather]){
+    for subView in dailyStackView.subviews {
+      subView.removeFromSuperview()
+    }
+
+    for model in models {
+      let dailyWeatherView = DailyWeatherView()
+//      let viewModel = DailyWeatherViewModel(model: model)
+//      dailyWeatherView.viewModel = viewModel
+      dailyWeatherView.setModel(model)
+
+      self.dailyStackView.addArrangedSubview(dailyWeatherView)
+
+      dailyWeatherView.snp.makeConstraints{
+        $0.width.equalTo(self.dailyScrollView)
+        $0.height.greaterThanOrEqualTo(self.dailyScrollView).multipliedBy(0.125)
+      }
+    }
+  }
+  
+  // new-version
+  func initNewHourlyWeatherViews(_ models: Domain.Hourly){
+    for subView in hourlyStackView.subviews {
+      subView.removeFromSuperview()
+    }
+    
+    for model in models.data {
+      let hourlyWeatherView = HourlyWeatherView()
+      hourlyWeatherView.setNewModel(model)
       
       self.hourlyStackView.addArrangedSubview(hourlyWeatherView)
       
@@ -114,15 +184,16 @@ extension WeatherCell {
     }
   }
   
-  func initDailyWeatherViews(_ models: [DailyWeather]){
+  func initNewDailyWeatherViews(_ models: Domain.Daily){
     for subView in dailyStackView.subviews {
       subView.removeFromSuperview()
     }
     
-    for model in models {
+    for model in models.data {
       let dailyWeatherView = DailyWeatherView()
-      
-      dailyWeatherView.setModel(model)
+      //      let viewModel = DailyWeatherViewModel(model: model)
+      //      dailyWeatherView.viewModel = viewModel
+      dailyWeatherView.setNewModel(model)
       
       self.dailyStackView.addArrangedSubview(dailyWeatherView)
       
@@ -132,5 +203,5 @@ extension WeatherCell {
       }
     }
   }
-  
+
 }

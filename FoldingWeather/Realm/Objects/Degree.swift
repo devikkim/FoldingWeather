@@ -11,4 +11,4 @@ import RealmSwift
 
 final class Degree: Object {
   @objc dynamic var unit: Int = 0
-}
+} 

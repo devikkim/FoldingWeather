@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Domain
 
 class HourlyWeatherView: UIView {
 
@@ -94,11 +95,13 @@ extension HourlyWeatherView {
     }
   }
   
+  
+  // old-version
   func setModel(_ model: HourlyWeather) {
     timeLabel.text = model.time
     temperatureLabel.text = model.temperature
     iconLabel.text = model.icon.emoji
-    
+
     if model.icon == .rain || model.icon == .snow{
       precipProbabilityLabel.text = model.precipProbability
     } else {
@@ -106,4 +109,17 @@ extension HourlyWeatherView {
     }
   }
 
+  // new-version
+  func setNewModel(_ model: Domain.Hourly.Data) {
+    timeLabel.text = model.time
+    temperatureLabel.text = model.temperature
+    iconLabel.text = model.icon
+    
+//    if model.icon == .rain || model.icon == .snow{
+//      precipProbabilityLabel.text = model.precipProbability
+//    } else {
+//      precipProbabilityLabel.text = " "
+//    }
+    precipProbabilityLabel.text = " "
+  }
 }

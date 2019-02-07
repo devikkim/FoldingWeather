@@ -59,6 +59,7 @@ extension WeatherTableViewController {
     let dataSource = RxTableViewSectionedReloadDataSource<SectionWeather>(configureCell: { dataSource, tableView, indexPath, item in
       let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell",
                                                for: indexPath) as! WeatherCell
+      
       cell.model = item
       
       let durations: [TimeInterval] = [0.26, 0.01, 0.01, 0.01, 0.01]
@@ -83,8 +84,9 @@ extension WeatherTableViewController {
     
     // bind delete
     tableView.rx.itemDeleted
-      .bind{[weak self] indexPath in
-        self?.viewModel.delete.onNext(indexPath.row)
+      .filter{$0.section != 0}
+      .bind{ indexPath in
+        self.viewModel.delete.onNext(indexPath.row)
       }
       .disposed(by: disposeBag)
     
@@ -98,13 +100,16 @@ extension WeatherTableViewController {
     // bind weathers count with self.cellHeights
     viewModel
       .weathers
-      .bind{ [unowned self] models in
+      .bind{ models in
         self.cellHeights[1] = [CGFloat](repeating: 116, count: models[1].items.count)
       }
       .disposed(by: disposeBag)
     
     // bind delegate
-    tableView.rx.setDelegate(self).disposed(by: disposeBag)
+    tableView
+      .rx
+      .setDelegate(self)
+      .disposed(by: disposeBag)
     
     // bind segmentControl event
     segmentControl.rx.controlEvent(.valueChanged)
