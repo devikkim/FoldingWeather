@@ -30,7 +30,7 @@ import Gifu
 
 class WeatherViewController: UIViewController {
   private let disposeBag = DisposeBag()
-
+  
   var viewModel: WeatherViewModel!
   var cellHeights: [[CGFloat]] = [[WeatherCellInformation.cellSize.closeHeight], []]
   
@@ -85,11 +85,11 @@ class WeatherViewController: UIViewController {
     tableView.rowHeight = UITableView.automaticDimension
     tableView.backgroundColor = .clear
     tableView.separatorStyle = .none
-
+    
     if #available(iOS 10.0, *) {
       tableView.refreshControl = UIRefreshControl()
     }
-
+    
     let nibName = UINib(nibName: "WeatherCell", bundle: nil)
     tableView.register(nibName, forCellReuseIdentifier: "WeatherCell")
   }
@@ -110,13 +110,12 @@ class WeatherViewController: UIViewController {
     navigationItem.rightBarButtonItem = rightButton
     navigationItem.leftBarButtonItem = leftButton
     
-    (rightButton.rx.tap).bind { [unowned self] in
+    (rightButton.rx.tap).bind {
       self.presentSearchViewController()
       }
       .disposed(by: disposeBag)
     
-    (leftButton.rx.tap).bind { [unowned self] in
-      self.persentInformationViewController()
+    (leftButton.rx.tap).bind {
       }
       .disposed(by: disposeBag)
     
@@ -131,17 +130,73 @@ class WeatherViewController: UIViewController {
   }
   
   private func bindViewModel() {
-    assert(viewModel != nil)
+    tableView
+      .rx
+      .setDelegate(self)
+      .disposed(by: disposeBag)
     
-    let viewDidAppear =
-      rx.sentMessage(#selector(UIViewController.viewDidAppear(_:)))
-        .mapToVoid()
-        .asDriverOnErrorJustComplete()
+    tableView
+      .rx
+      .willDisplayHeaderView
+      .bind{ $0.textLabel?.textColor = UIColor.white }
+      .disposed(by: disposeBag)
     
-    let pull =
-      (tableView.refreshControl!.rx)
-        .controlEvent(.valueChanged)
-        .asDriver()
+    tableView.rx
+      .didSelectRowAt
+      .bind{ tableView, indexPath in
+        let cell = tableView.cellForRow(at: indexPath) as! WeatherCell
+        
+        let cellIsCollapsed = self.cellHeights[indexPath.section][indexPath.row] == WeatherCellInformation.cellSize.closeHeight
+        if cellIsCollapsed {
+          self.cellHeights[indexPath.section][indexPath.row] = WeatherCellInformation.cellSize.openHeight
+          cell.unfold(true, animated: true, completion: nil)
+        } else {
+          self.cellHeights[indexPath.section][indexPath.row] = WeatherCellInformation.cellSize.closeHeight
+          cell.unfold(false, animated: true, completion: nil)
+        }
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: { () -> Void in
+          tableView.beginUpdates()
+          tableView.endUpdates()
+        }, completion: nil)
+      }
+      .disposed(by: disposeBag)
+    
+    tableView.rx
+      .willDisplayWithFoldingCell
+      .bind{ cell, indexPath in
+        cell.backgroundColor = .clear
+        
+        if self.cellHeights[indexPath.section][indexPath.row] == WeatherCellInformation.cellSize.closeHeight {
+          cell.unfold(false, animated: false, completion: nil)
+        } else {
+          cell.unfold(true, animated: false, completion: nil)
+        }
+      }
+      .disposed(by: disposeBag)
+    
+    searchVC
+      .rx
+      .didAutocomplete
+      .subscribe(onNext: { place in
+        print("place: \(place)")
+      })
+      .disposed(by: disposeBag)
+    
+    searchVC
+      .rx
+      .didFailAutocompleteWithError
+      .subscribe(onNext: {error in
+        print("Error: \(error)")
+      })
+      .disposed(by: disposeBag)
+    
+    let viewDidAppear = rx.sentMessage(#selector(UIViewController.viewDidAppear(_:)))
+      .mapToVoid()
+      .asDriverOnErrorJustComplete()
+    
+    let pull = (tableView.refreshControl!.rx)
+      .controlEvent(.valueChanged)
+      .asDriver()
     
     let input = WeatherViewModel.Input(fetchTrigger: Driver.merge(viewDidAppear, pull),
                                        selection: tableView.rx.itemSelected.asDriver())
@@ -157,14 +212,6 @@ class WeatherViewController: UIViewController {
     
     dataSource.titleForHeaderInSection = { dataSource, index in
       return dataSource.sectionModels[index].header
-    }
-    
-    dataSource.canEditRowAtIndexPath = { dataSource, indexPath in
-      return true
-    }
-    
-    dataSource.canMoveRowAtIndexPath = { dataSource, indexPath in
-      return true
     }
     
     output
@@ -188,94 +235,16 @@ class WeatherViewController: UIViewController {
         print("error: \(error.element.debugDescription)")
       })
       .disposed(by: disposeBag)
-    
-    tableView
-      .rx
-      .setDelegate(self)
-      .disposed(by: disposeBag)
-    
-    tableView.rx.delegate
-      .sentMessage(#selector(UITableViewDelegate.tableView(_:willDisplayHeaderView:forSection:)))
-      .observeOn(MainScheduler.instance)
-      .map{ $0[1] as! UIView }
-      .bind{ view in
-        let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = UIColor.white
-      }
-      .disposed(by: disposeBag)
-    
-    tableView.rx.delegate
-      .sentMessage(#selector(UITableViewDelegate.tableView(_:didSelectRowAt:)))
-      .map{ ($0[0] as! UITableView , $0[1] as! IndexPath) }
-      .bind{ tableView, indexPath in
-        let cell = tableView.cellForRow(at: indexPath) as! WeatherCell
-        
-        let cellIsCollapsed = self.cellHeights[indexPath.section][indexPath.row] == WeatherCellInformation.cellSize.closeHeight
-        if cellIsCollapsed {
-          self.cellHeights[indexPath.section][indexPath.row] = WeatherCellInformation.cellSize.openHeight
-          cell.unfold(true, animated: true, completion: nil)
-        } else {
-          self.cellHeights[indexPath.section][indexPath.row] = WeatherCellInformation.cellSize.closeHeight
-          cell.unfold(false, animated: true, completion: nil)
-        }
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: { () -> Void in
-          tableView.beginUpdates()
-          tableView.endUpdates()
-        }, completion: nil)
-      }
-      .disposed(by: disposeBag)
-    
-    tableView.rx.delegate
-      .sentMessage(#selector(UITableViewDelegate.tableView(_:willDisplay:forRowAt:)))
-      .map{($0[1] as! WeatherCell, $0[2] as! IndexPath)}
-      .bind{cell, indexPath in
-        
-        cell.backgroundColor = .clear
-        
-        if self.cellHeights[indexPath.section][indexPath.row] == WeatherCellInformation.cellSize.closeHeight {
-          cell.unfold(false, animated: false, completion: nil)
-        } else {
-          cell.unfold(true, animated: false, completion: nil)
-        }
-      }
-      .disposed(by: disposeBag)
-    
-    searchVC
-      .rx
-      .didAutocompleteWith
-      .subscribe(onNext: {place in
-        print("place: \(place)")
-      })
-    .disposed(by: disposeBag)
   }
-  
-  
 }
 
 extension WeatherViewController {
   func presentSearchViewController(){
-//    let searchVC = SearchViewController()
-////    searchVC.rx.didAutocompleteWith
-//
-////    searchVC.delegate = self
     present(searchVC, animated: true, completion: nil)
-  }
-  
-  func persentInformationViewController(){
-    // TODO: Imformation ViewController
   }
 }
 
-
-
-//FIXME: Delegate 를 Rx와 바인딩 하는 부분 만들 것
-/**
- 
- - UITableViewDelegate (o)
- - GMSAutocompleteViewControllerDelegate
- - SPPermissionDialogDelegate
- 
- */
+//FIXME: convert delegate to reactive observable
 extension WeatherViewController: UITableViewDelegate {
   // set section header
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -291,37 +260,6 @@ extension WeatherViewController: UITableViewDelegate {
 extension WeatherViewController: SPPermissionDialogDelegate {
   func didAllow(permission: SPPermissionType){
     print("allowed permission")
-    // if permission is allowd, then call reload
-//    viewModel.reload.onNext(())
-  }
-}
-
-extension WeatherViewController: GMSAutocompleteViewControllerDelegate {
-  // case get a searched location information
-  func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-    let location = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
-    print("location: \(location)")
-    // TODO: viewModel 하고 연결하여 저장. viewDidAppear 보다 빠름. 그러니 저장만 하면됨.
-    dismiss(animated: true, completion: nil)
-  }
-  
-  // case get a error while searching
-  func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-    print("Error: ", error.localizedDescription)
-  }
-  
-  // case search cancel from user
-  func wasCancelled(_ viewController: GMSAutocompleteViewController) {
-    dismiss(animated: true, completion: nil)
-  }
-  
-  // turn the network activity indicator on again
-  func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-    UIApplication.shared.isNetworkActivityIndicatorVisible = true
-  }
-  
-  // turn the network activity indicator off again
-  func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    //TODO : if permission is allowd, then call reload
   }
 }

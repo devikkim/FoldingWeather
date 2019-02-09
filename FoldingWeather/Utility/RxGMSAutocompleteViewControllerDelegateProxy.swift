@@ -32,10 +32,16 @@ class RxGMSAutocompleteViewControllerDelegateProxy:
   DelegateProxyType,
   GMSAutocompleteViewControllerDelegate {
   
-  public weak private(set) var gmsAutoCompleteVC: GMSAutocompleteViewController?
+  internal let didAutocompleWithSubject: PublishSubject<GMSPlace>
+  internal let didFailAutocompleteWithErrorSubject: PublishSubject<Error>
+  internal let wasCancelledSubject: PublishSubject<Void>
+  
   
   init(gmsAutoCompleteVC: GMSAutocompleteViewController) {
-    self.gmsAutoCompleteVC = gmsAutoCompleteVC
+    didAutocompleWithSubject = PublishSubject<GMSPlace>()
+    didFailAutocompleteWithErrorSubject = PublishSubject<Error>()
+    wasCancelledSubject = PublishSubject<Void>()
+    
     super.init(parentObject: gmsAutoCompleteVC,
                delegateProxy: RxGMSAutocompleteViewControllerDelegateProxy.self)
   }
@@ -45,14 +51,19 @@ class RxGMSAutocompleteViewControllerDelegateProxy:
   }
   
   func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+    didAutocompleWithSubject.asObserver().onNext(place)
+    viewController.dismiss(animated: true, completion: nil)
   }
   
   // case get a error while searching
   func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+    didFailAutocompleteWithErrorSubject.asObserver().onNext(error)
   }
   
   // case search cancel from user
   func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+    wasCancelledSubject.asObserver().onNext(())
+    viewController.dismiss(animated: true, completion: nil)
   }
   
   // turn the network activity indicator on again
@@ -66,22 +77,26 @@ class RxGMSAutocompleteViewControllerDelegateProxy:
   }
 }
 
-
 extension Reactive where Base: GMSAutocompleteViewController {
   public var delegate: DelegateProxy<GMSAutocompleteViewController, GMSAutocompleteViewControllerDelegate> {
     return RxGMSAutocompleteViewControllerDelegateProxy.proxy(for: base)
   }
   
-  public var didAutocompleteWith: Observable<(GMSAutocompleteViewController, GMSPlace)> {
-    let source = delegate.methodInvoked(#selector(GMSAutocompleteViewControllerDelegate.viewController(_:didAutocompleteWith:)))
-      .map{ ($0[0] as! GMSAutocompleteViewController, $0[1] as! GMSPlace) }
-    return source
+  public var didAutocomplete: Observable<GMSPlace> {
+    return (delegate as! RxGMSAutocompleteViewControllerDelegateProxy)
+      .didAutocompleWithSubject
+      .asObservable()
   }
   
-  public var didFailAutocompleteWithError: Observable<(GMSAutocompleteViewController, Error)> {
-    let source = delegate
-      .methodInvoked(#selector(GMSAutocompleteViewControllerDelegate.viewController(_:didFailAutocompleteWithError:)))
-      .map{ ($0[0] as! GMSAutocompleteViewController, $0[0] as! Error ) }
-    return source
+  public var didFailAutocompleteWithError: Observable<Error> {
+    return (delegate as! RxGMSAutocompleteViewControllerDelegateProxy)
+      .didFailAutocompleteWithErrorSubject
+      .asObservable()
+  }
+  
+  public var wasCancelled: Observable<Void> {
+    return (delegate as! RxGMSAutocompleteViewControllerDelegateProxy)
+      .wasCancelledSubject
+      .asObservable()
   }
 }

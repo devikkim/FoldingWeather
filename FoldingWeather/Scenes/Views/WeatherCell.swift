@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 import Domain
 
-class WeatherCell: FoldingCell {
+public class WeatherCell: FoldingCell {
   
   private let disposeBag = DisposeBag()
   
@@ -65,7 +65,7 @@ class WeatherCell: FoldingCell {
     }
   }
   
-  override func awakeFromNib() {
+  override public func awakeFromNib() {
     
     containerViewHeightConstraint.constant = WeatherCellInformation.constraint.containerViewHeight
     foregroundView.layer.cornerRadius = 10
@@ -94,12 +94,12 @@ class WeatherCell: FoldingCell {
     super.awakeFromNib()
   }
   
-  override func setSelected(_ selected: Bool, animated: Bool) {
+  override public func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
     // Configure the view for the selected state
   }
   
-  override func animationDuration(_ itemIndex: NSInteger, type: AnimationType) -> TimeInterval {
+  override public func animationDuration(_ itemIndex: NSInteger, type: AnimationType) -> TimeInterval {
     
     // durations count equal it itemCount
     let durations =  [0.26, 0.01, 0.01, 0.01, 0.01]
