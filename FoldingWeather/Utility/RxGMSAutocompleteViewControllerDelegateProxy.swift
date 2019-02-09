@@ -34,8 +34,6 @@ class RxGMSAutocompleteViewControllerDelegateProxy:
   
   public weak private(set) var gmsAutoCompleteVC: GMSAutocompleteViewController?
   
-  let didAutocompleteWith = PublishSubject<(GMSAutocompleteViewController, GMSPlace)>()
-  
   init(gmsAutoCompleteVC: GMSAutocompleteViewController) {
     self.gmsAutoCompleteVC = gmsAutoCompleteVC
     super.init(parentObject: gmsAutoCompleteVC,
@@ -47,7 +45,6 @@ class RxGMSAutocompleteViewControllerDelegateProxy:
   }
   
   func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-    didAutocompleteWith.asObserver().onNext((viewController, place))
   }
   
   // case get a error while searching

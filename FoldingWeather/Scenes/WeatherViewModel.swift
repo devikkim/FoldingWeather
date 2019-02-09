@@ -10,10 +10,6 @@ import Foundation
 import RxSwift
 import RxCocoa
 import Domain
-<<<<<<< HEAD:FoldingWeather/CleanArchithecture/Scenes/NewWeatherViewModel.swift
- 
-final class NewWeatherViewModel: ViewModelType {
-=======
 
 struct SectionHeaders {
   static let kUserLocation = "User Location"
@@ -21,7 +17,7 @@ struct SectionHeaders {
 }
 
 final class WeatherViewModel: ViewModelType {
->>>>>>> update:FoldingWeather/Scenes/WeatherViewModel.swift
+
   struct Input {
     let fetchTrigger: Driver<Void>
     let selection: Driver<IndexPath>
