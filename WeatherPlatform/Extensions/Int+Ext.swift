@@ -16,6 +16,10 @@ extension Int {
     
     timeFormatter.dateFormat = dateFormat
     
+    if let timeZone = timeZone {
+      timeFormatter.timeZone = timeZone
+    }
+    
     let timeInterval = TimeInterval(self)
     let date = Date(timeIntervalSince1970: timeInterval)
     

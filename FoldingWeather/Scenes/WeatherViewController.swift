@@ -31,7 +31,7 @@ import Gifu
 class WeatherViewController: UIViewController {
   private let disposeBag = DisposeBag()
 
-  var viewModel: NewWeatherViewModel!
+  var viewModel: WeatherViewModel!
   var cellHeights: [[CGFloat]] = [[WeatherCellInformation.cellSize.closeHeight], []]
   
   // seleect Degree unit
@@ -44,6 +44,8 @@ class WeatherViewController: UIViewController {
                                               index: UInt(RealmDegreeManager.shared.select()),
                                               options: [.backgroundColor(.clear),
                                                         .indicatorViewBackgroundColor(.clear)])
+  
+  let searchVC = SearchViewController()
   
   //TODO: init UITableview
   lazy var tableView = UITableView(frame: self.view.bounds, style: .grouped)
@@ -141,15 +143,15 @@ class WeatherViewController: UIViewController {
         .controlEvent(.valueChanged)
         .asDriver()
     
-    let input = NewWeatherViewModel.Input(fetchTrigger: Driver.merge(viewDidAppear, pull),
-                                          selection: tableView.rx.itemSelected.asDriver())
+    let input = WeatherViewModel.Input(fetchTrigger: Driver.merge(viewDidAppear, pull),
+                                       selection: tableView.rx.itemSelected.asDriver())
     
     let output = viewModel.transform(input: input)
     
-    let dataSource = RxTableViewSectionedReloadDataSource<NewSectionWeather>(configureCell: { dataSource, tableView, indexPath, item in
+    let dataSource = RxTableViewSectionedReloadDataSource<SectionWeather>(configureCell: { dataSource, tableView, indexPath, item in
       let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell",
                                                for: indexPath) as! WeatherCell
-      cell.newModel = item
+      cell.model = item
       return cell
     })
     
@@ -164,7 +166,6 @@ class WeatherViewController: UIViewController {
     dataSource.canMoveRowAtIndexPath = { dataSource, indexPath in
       return true
     }
-    
     
     output
       .weathers
@@ -181,18 +182,82 @@ class WeatherViewController: UIViewController {
       .drive(tableView.refreshControl!.rx.isRefreshing)
       .disposed(by: disposeBag)
     
+    output.error
+      .asObservable()
+      .subscribe({error in
+        print("error: \(error.element.debugDescription)")
+      })
+      .disposed(by: disposeBag)
+    
     tableView
       .rx
       .setDelegate(self)
       .disposed(by: disposeBag)
     
+    tableView.rx.delegate
+      .sentMessage(#selector(UITableViewDelegate.tableView(_:willDisplayHeaderView:forSection:)))
+      .observeOn(MainScheduler.instance)
+      .map{ $0[1] as! UIView }
+      .bind{ view in
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.white
+      }
+      .disposed(by: disposeBag)
+    
+    tableView.rx.delegate
+      .sentMessage(#selector(UITableViewDelegate.tableView(_:didSelectRowAt:)))
+      .map{ ($0[0] as! UITableView , $0[1] as! IndexPath) }
+      .bind{ tableView, indexPath in
+        let cell = tableView.cellForRow(at: indexPath) as! WeatherCell
+        
+        let cellIsCollapsed = self.cellHeights[indexPath.section][indexPath.row] == WeatherCellInformation.cellSize.closeHeight
+        if cellIsCollapsed {
+          self.cellHeights[indexPath.section][indexPath.row] = WeatherCellInformation.cellSize.openHeight
+          cell.unfold(true, animated: true, completion: nil)
+        } else {
+          self.cellHeights[indexPath.section][indexPath.row] = WeatherCellInformation.cellSize.closeHeight
+          cell.unfold(false, animated: true, completion: nil)
+        }
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: { () -> Void in
+          tableView.beginUpdates()
+          tableView.endUpdates()
+        }, completion: nil)
+      }
+      .disposed(by: disposeBag)
+    
+    tableView.rx.delegate
+      .sentMessage(#selector(UITableViewDelegate.tableView(_:willDisplay:forRowAt:)))
+      .map{($0[1] as! WeatherCell, $0[2] as! IndexPath)}
+      .bind{cell, indexPath in
+        
+        cell.backgroundColor = .clear
+        
+        if self.cellHeights[indexPath.section][indexPath.row] == WeatherCellInformation.cellSize.closeHeight {
+          cell.unfold(false, animated: false, completion: nil)
+        } else {
+          cell.unfold(true, animated: false, completion: nil)
+        }
+      }
+      .disposed(by: disposeBag)
+    
+    searchVC
+      .rx
+      .didAutocompleteWith
+      .subscribe(onNext: {place in
+        print("place: \(place)")
+      })
+    .disposed(by: disposeBag)
   }
+  
+  
 }
 
 extension WeatherViewController {
   func presentSearchViewController(){
-    let searchVC = SearchViewController()
-    searchVC.delegate = self
+//    let searchVC = SearchViewController()
+////    searchVC.rx.didAutocompleteWith
+//
+////    searchVC.delegate = self
     present(searchVC, animated: true, completion: nil)
   }
   
@@ -206,55 +271,15 @@ extension WeatherViewController {
 //FIXME: Delegate 를 Rx와 바인딩 하는 부분 만들 것
 /**
  
- - UITableViewDelegate
+ - UITableViewDelegate (o)
  - GMSAutocompleteViewControllerDelegate
  - SPPermissionDialogDelegate
  
  */
 extension WeatherViewController: UITableViewDelegate {
-  // custom section header
-  func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-    view.tintColor = UIColor.red
-    let header = view as! UITableViewHeaderFooterView
-    header.textLabel?.textColor = UIColor.white
-  }
-  
   // set section header
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     return 20
-  }
-  
-  // specified row is now selected.
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let cell = tableView.cellForRow(at: indexPath) as! WeatherCell
-    
-    let cellIsCollapsed = cellHeights[indexPath.section][indexPath.row] == WeatherCellInformation.cellSize.closeHeight
-    if cellIsCollapsed {
-      cellHeights[indexPath.section][indexPath.row] = WeatherCellInformation.cellSize.openHeight
-      cell.unfold(true, animated: true, completion: nil)
-    } else {
-      cellHeights[indexPath.section][indexPath.row] = WeatherCellInformation.cellSize.closeHeight
-      cell.unfold(false, animated: true, completion: nil)
-    }
-    UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: { () -> Void in
-      tableView.beginUpdates()
-      tableView.endUpdates()
-    }, completion: nil)
-  }
-  
-  // drawing cell
-  func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    guard case let cell as WeatherCell = cell else {
-      return
-    }
-    
-    cell.backgroundColor = .clear
-    
-    if cellHeights[indexPath.section][indexPath.row] == WeatherCellInformation.cellSize.closeHeight {
-      cell.unfold(false, animated: false, completion: nil)
-    } else {
-      cell.unfold(true, animated: false, completion: nil)
-    }
   }
   
   // set height of cell.
@@ -265,6 +290,7 @@ extension WeatherViewController: UITableViewDelegate {
 
 extension WeatherViewController: SPPermissionDialogDelegate {
   func didAllow(permission: SPPermissionType){
+    print("allowed permission")
     // if permission is allowd, then call reload
 //    viewModel.reload.onNext(())
   }

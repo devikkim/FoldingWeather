@@ -10,6 +10,10 @@ import Domain
 import RxSwift
 import CoreLocation
 
+enum LocationError: Error {
+  case userlocation
+}
+
 public final class WeatherNetwork {
   private let network: Network
   
@@ -28,11 +32,11 @@ public final class WeatherNetwork {
     locationManager.requestWhenInUseAuthorization()
     locationManager.desiredAccuracy = kCLLocationAccuracyBest
     locationManager.startUpdatingLocation()
-    
+
     guard let location = locationManager.location
       else {
-        return Observable.empty()
-      }
+        return Observable.error(LocationError.userlocation)
+    }
     
     return fetchWeather(location: Location(latitude: location.coordinate.latitude,
                                            longitude: location.coordinate.longitude))

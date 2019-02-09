@@ -22,8 +22,8 @@ class WeatherNavigator {
   func toFetchAll() {
     let weatherVC = WeatherViewController()
     
-    weatherVC.viewModel = NewWeatherViewModel(useCase: services.makeWeatherUseCase(),
-                                              navigator: self)
+    weatherVC.viewModel = WeatherViewModel(useCase: services.makeWeatherUseCase(),
+                                           navigator: self)
     
     navigationController.pushViewController(weatherVC, animated: true)
   }

@@ -39,12 +39,14 @@ final class Network {
         .data(.get, weatherPath)
         .debug()
         .observeOn(scheduler)
-        .map { return try JSONDecoder().decode(Weather.self, from: $0) },
+        .catchErrorJustReturn(Data())
+        .map { try JSONDecoder().decode(Weather.self, from: $0) },
       RxAlamofire
         .data(.get, airPath)
         .debug()
         .observeOn(scheduler)
-        .map { return try JSONDecoder().decode(Air.self, from: $0) })
+        .catchErrorJustReturn(Data())
+        .map { try JSONDecoder().decode(Air.self, from: $0) })
       .map { weather, air -> Weather in
         var newWeather = weather.formatted()
         newWeather.aqi = air.data.aqi

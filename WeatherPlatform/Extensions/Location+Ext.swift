@@ -11,28 +11,30 @@ import CoreLocation
 import Domain
 import RxSwift
 
+enum NewLocationError: Error {
+  case didNotGetAddress
+}
 
 extension Location {
-  public func getAddress() -> Observable<String> {
+  public func getAddress() -> Single<String> {
     
-    return Observable.create{ observer in
+    return Single<String>.create{ single in
       let location = CLLocation(latitude: self.latitude , longitude: self.longitude)
       let geocoder = CLGeocoder()
       
       geocoder.reverseGeocodeLocation(location) {(placemarks, error) in
         if (error != nil) {
+          single(.error(NewLocationError.didNotGetAddress))
           return
         }
         
         if let address: [CLPlacemark] = placemarks {
           if let locationString = (address.last?.locality != nil) ? address.last?.locality : address.last?.country {
-            observer.onNext(locationString)
-            observer.onCompleted()
+            single(.success(locationString))
           }
         }
         
-        observer.onNext("unknown")
-        observer.onCompleted()
+        single(.error(NewLocationError.didNotGetAddress))
       }
       return Disposables.create()
     }

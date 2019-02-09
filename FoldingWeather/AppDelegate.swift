@@ -17,8 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   let disposeBag = DisposeBag()
   
   var window: UIWindow?
-
-  var viewModel: WeatherViewModel!
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
@@ -62,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func applicationWillEnterForeground(_ application: UIApplication) {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    viewModel.reload.onNext(())
+//    viewModel.reload.onNext(())
   }
 
   func applicationDidBecomeActive(_ application: UIApplication) {

@@ -13,8 +13,4 @@ class API {
   static func setGoogleMapAPIKey(provideAPIKey: String){
     GMSPlacesClient.provideAPIKey(provideAPIKey)
   }
-  
-  static func setDarkSkyAPIKey(secureKey: String) {
-    WeatherService.setUserSecretKey(secureKey)
-  }
 }

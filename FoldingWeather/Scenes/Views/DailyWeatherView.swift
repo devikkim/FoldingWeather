@@ -79,19 +79,10 @@ extension DailyWeatherView {
     }
   }
   
-  // old-version
-  func setModel(_ model: DailyWeather) {
-    dayLabel.text = model.day
-    temperatureMaxLabel.text = model.temperatureMax
-    temperatureMinLabel.text = model.temperatureMin
-    iconLabel.text = model.icon.emoji
-  }
-
-  // new-version
-  func setNewModel(_ model: Domain.Daily.Data) {
+  func setModel(_ model: Daily.Data) {
     dayLabel.text = model.time
     temperatureMaxLabel.text = model.temperatureMax
     temperatureMinLabel.text = model.temperatureMin
-    iconLabel.text = model.icon
+    iconLabel.text = model.icon.toIcon()!.emoji
   }
 }

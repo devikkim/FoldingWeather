@@ -91,7 +91,7 @@
                value = "address">
             </PersistentString>
             <PersistentString
-               value = "address.last?.country">
+               value = "address.last?.name">
             </PersistentString>
             <PersistentString
                value = "address.last?.administrativeArea">
@@ -109,21 +109,32 @@
                value = "address.last?.subAdministrativeArea">
             </PersistentString>
             <PersistentString
-               value = "address.last?.name">
+               value = "address.last?.country">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Weather.formatted():Weather+Ext.swift">
       </ContextState>
       <ContextState
          contextName = "closure #2 in WeatherViewModel.init():WeatherViewModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.nowWeather">
+               value = "self.nowWeather[1].locationType == model.locationType">
             </PersistentString>
             <PersistentString
                value = "self.nowWeather[1]">
             </PersistentString>
             <PersistentString
-               value = "self.nowWeather[1].locationType == model.locationType">
+               value = "self.nowWeather">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HourlyWeatherView.setNewModel(_:):HourlyWeatherView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "model.icon">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -132,6 +143,17 @@
          <PersistentStrings>
             <PersistentString
                value = "list.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "WeatherNetwork.fetchWeather():WeatherNetwork.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "location.coordinate.latitude">
+            </PersistentString>
+            <PersistentString
+               value = "location.coordinate.longitude">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

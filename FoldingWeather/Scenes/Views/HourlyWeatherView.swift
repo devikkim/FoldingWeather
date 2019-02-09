@@ -95,31 +95,15 @@ extension HourlyWeatherView {
     }
   }
   
-  
-  // old-version
-  func setModel(_ model: HourlyWeather) {
+  func setModel(_ model: Hourly.Data) {
     timeLabel.text = model.time
     temperatureLabel.text = model.temperature
-    iconLabel.text = model.icon.emoji
-
-    if model.icon == .rain || model.icon == .snow{
+    iconLabel.text = model.icon.toIcon()!.emoji
+    
+    if model.icon.toIcon()! == .rain || model.icon.toIcon()! == .snow{
       precipProbabilityLabel.text = model.precipProbability
     } else {
       precipProbabilityLabel.text = " "
     }
-  }
-
-  // new-version
-  func setNewModel(_ model: Domain.Hourly.Data) {
-    timeLabel.text = model.time
-    temperatureLabel.text = model.temperature
-    iconLabel.text = model.icon
-    
-//    if model.icon == .rain || model.icon == .snow{
-//      precipProbabilityLabel.text = model.precipProbability
-//    } else {
-//      precipProbabilityLabel.text = " "
-//    }
-    precipProbabilityLabel.text = " "
   }
 }

@@ -10,8 +10,18 @@ import Foundation
 import RxSwift
 import RxCocoa
 import Domain
+<<<<<<< HEAD:FoldingWeather/CleanArchithecture/Scenes/NewWeatherViewModel.swift
  
 final class NewWeatherViewModel: ViewModelType {
+=======
+
+struct SectionHeaders {
+  static let kUserLocation = "User Location"
+  static let kSearchedLocation = "Searched Location"
+}
+
+final class WeatherViewModel: ViewModelType {
+>>>>>>> update:FoldingWeather/Scenes/WeatherViewModel.swift
   struct Input {
     let fetchTrigger: Driver<Void>
     let selection: Driver<IndexPath>
@@ -20,7 +30,7 @@ final class NewWeatherViewModel: ViewModelType {
   struct Output {
     let fetching: Driver<Bool>
     let error: Driver<Error>
-    let weathers: Driver<[NewSectionWeather]>
+    let weathers: Driver<[SectionWeather]>
   }
   
   private let useCase: WeatherUseCase
@@ -35,24 +45,21 @@ final class NewWeatherViewModel: ViewModelType {
   func transform(input: Input) -> Output {
     let activityIndicator = ActivityIndicator()
     let errorTracker = ErrorTracker()
+    
     let weathers = input.fetchTrigger.flatMapLatest {
       return Observable.combineLatest(self.useCase.fetch(),self.useCase.fetchAll())
         .trackActivity(activityIndicator)
         .trackError(errorTracker)
         .asDriverOnErrorJustComplete()
-        .map { user, searched -> [NewSectionWeather] in
-          print("user: \(user)")
-          print("searched: \(searched)")
-          let userSection = NewSectionWeather(header: "User Location", items: [user])
-          let searchedSection = NewSectionWeather(header: "Searched Location", items: searched)
+        .map { user, searched -> [SectionWeather] in
+          let userSection = SectionWeather(header: SectionHeaders.kUserLocation, items: [user])
+          let searchedSection = SectionWeather(header: SectionHeaders.kSearchedLocation, items: searched)
           
           return [userSection, searchedSection]
       }
     }
     
-    // indicator on/off
     let fetching = activityIndicator.asDriver()
-    // if occurred error
     let errors = errorTracker.asDriver()
 
     // 선택한 indexpath 를 받으면 FoldingCell 의 open / close height를 반환
