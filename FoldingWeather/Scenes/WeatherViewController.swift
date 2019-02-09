@@ -35,19 +35,22 @@ class WeatherViewController: UIViewController {
   var cellHeights: [[CGFloat]] = [[WeatherCellInformation.cellSize.closeHeight], []]
   
   // seleect Degree unit
-  let segmentControl = BetterSegmentedControl(frame: CGRect(x: 0, y: 0, width: 0, height: 0),
-                                              segments: LabelSegment.segments(withTitles: ["℃", "℉"],
-                                                                              normalFont: UIFont(name: "HelveticaNeue-Light", size: 14.0)!,
-                                                                              normalTextColor: .lightGray,
-                                                                              selectedFont: UIFont(name: "HelveticaNeue-Bold", size: 14.0)!,
-                                                                              selectedTextColor: .white),
-                                              index: UInt(RealmDegreeManager.shared.select()),
-                                              options: [.backgroundColor(.clear),
-                                                        .indicatorViewBackgroundColor(.clear)])
+  let segmentControl = BetterSegmentedControl(
+    frame: CGRect(x: 0, y: 0, width: 0, height: 0),
+    segments: LabelSegment.segments(withTitles: ["℃", "℉"],
+                                    normalFont: UIFont(name: "HelveticaNeue-Light",
+                                                       size: 14.0)!,
+                                    normalTextColor: .lightGray,
+                                    selectedFont: UIFont(name: "HelveticaNeue-Bold",
+                                                         size: 14.0)!,
+                                    selectedTextColor: .white),
+    index: UInt(RealmDegreeManager.shared.select()),
+    options: [.backgroundColor(.clear),
+              .indicatorViewBackgroundColor(.clear)]
+  )
   
   let searchVC = SearchViewController()
-  
-  //TODO: init UITableview
+
   lazy var tableView = UITableView(frame: self.view.bounds, style: .grouped)
   
   override func viewDidAppear(_ animated: Bool) {
@@ -174,22 +177,6 @@ class WeatherViewController: UIViewController {
       }
       .disposed(by: disposeBag)
     
-    searchVC
-      .rx
-      .didAutocomplete
-      .subscribe(onNext: { place in
-        print("place: \(place)")
-      })
-      .disposed(by: disposeBag)
-    
-    searchVC
-      .rx
-      .didFailAutocompleteWithError
-      .subscribe(onNext: {error in
-        print("Error: \(error)")
-      })
-      .disposed(by: disposeBag)
-    
     let viewDidAppear = rx.sentMessage(#selector(UIViewController.viewDidAppear(_:)))
       .mapToVoid()
       .asDriverOnErrorJustComplete()
@@ -235,6 +222,21 @@ class WeatherViewController: UIViewController {
         print("error: \(error.element.debugDescription)")
       })
       .disposed(by: disposeBag)
+    
+    searchVC.rx
+      .didAutocomplete
+      .subscribe(onNext: { place in
+        //TODO: save coordinate
+      })
+      .disposed(by: disposeBag)
+    
+    searchVC.rx
+      .didFailAutocompleteWithError
+      .subscribe(onNext: {error in
+        print("Error: \(error)")
+      })
+      .disposed(by: disposeBag)
+    
   }
 }
 

@@ -58,12 +58,6 @@ final class WeatherViewModel: ViewModelType {
     let fetching = activityIndicator.asDriver()
     let errors = errorTracker.asDriver()
 
-    // 선택한 indexpath 를 받으면 FoldingCell 의 open / close height를 반환
-//    let selectedWeather = input.selection
-//      .withLatestFrom(weathers) { (indexPath, weathers) -> Weather in
-//        return weathers.
-//    }
-    
     return Output(fetching: fetching,
                   error: errors,
                   weathers: weathers)
