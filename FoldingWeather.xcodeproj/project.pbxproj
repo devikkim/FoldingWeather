@@ -42,15 +42,12 @@
 		705271F421E707AD00CA9495 /* night.gif in Resources */ = {isa = PBXBuildFile; fileRef = 705271F121E707AD00CA9495 /* night.gif */; };
 		705271F521E707AD00CA9495 /* day.gif in Resources */ = {isa = PBXBuildFile; fileRef = 705271F221E707AD00CA9495 /* day.gif */; };
 		705271F621E707AD00CA9495 /* night2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 705271F321E707AD00CA9495 /* night2.gif */; };
-		70610C7421E2DC0A00D1B1BB /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70610C7321E2DC0A00D1B1BB /* Coordinate.swift */; };
 		70610C7E21E2E09B00D1B1BB /* RealmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70610C7D21E2E09B00D1B1BB /* RealmTests.swift */; };
-		70610C8021E2F26700D1B1BB /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70610C7F21E2F26700D1B1BB /* RealmManager.swift */; };
 		70610C8221E3194A00D1B1BB /* WeatherCellInfomation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70610C8121E3194A00D1B1BB /* WeatherCellInfomation.swift */; };
 		70610C8421E31A8900D1B1BB /* UIDevice+DeviceCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70610C8321E31A8900D1B1BB /* UIDevice+DeviceCase.swift */; };
 		70610C8621E31C0200D1B1BB /* DeviceCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70610C8521E31C0200D1B1BB /* DeviceCase.swift */; };
 		706DA22D21E464C000A39252 /* String+DeviceCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706DA22C21E464C000A39252 /* String+DeviceCase.swift */; };
 		706DA22F21E464DF00A39252 /* String+LanguageCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706DA22E21E464DF00A39252 /* String+LanguageCase.swift */; };
-		706DA23D21E5C7E200A39252 /* Degree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706DA23C21E5C7E200A39252 /* Degree.swift */; };
 		7076C19821F989400064AAD3 /* Air.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7076C19721F989400064AAD3 /* Air.swift */; };
 		7076C19B21F98D930064AAD3 /* AirTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 7076C19921F98D930064AAD3 /* AirTest.json */; };
 		7076C19C21F98D930064AAD3 /* WeatherTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 7076C19A21F98D930064AAD3 /* WeatherTest.json */; };
@@ -209,15 +206,12 @@
 		705271F121E707AD00CA9495 /* night.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = night.gif; sourceTree = "<group>"; };
 		705271F221E707AD00CA9495 /* day.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = day.gif; sourceTree = "<group>"; };
 		705271F321E707AD00CA9495 /* night2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = night2.gif; sourceTree = "<group>"; };
-		70610C7321E2DC0A00D1B1BB /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		70610C7D21E2E09B00D1B1BB /* RealmTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTests.swift; sourceTree = "<group>"; };
-		70610C7F21E2F26700D1B1BB /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		70610C8121E3194A00D1B1BB /* WeatherCellInfomation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCellInfomation.swift; sourceTree = "<group>"; };
 		70610C8321E31A8900D1B1BB /* UIDevice+DeviceCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+DeviceCase.swift"; sourceTree = "<group>"; };
 		70610C8521E31C0200D1B1BB /* DeviceCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCase.swift; sourceTree = "<group>"; };
 		706DA22C21E464C000A39252 /* String+DeviceCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+DeviceCase.swift"; sourceTree = "<group>"; };
 		706DA22E21E464DF00A39252 /* String+LanguageCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+LanguageCase.swift"; sourceTree = "<group>"; };
-		706DA23C21E5C7E200A39252 /* Degree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Degree.swift; sourceTree = "<group>"; };
 		7076C19721F989400064AAD3 /* Air.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Air.swift; sourceTree = "<group>"; };
 		7076C19921F98D930064AAD3 /* AirTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AirTest.json; sourceTree = "<group>"; };
 		7076C19A21F98D930064AAD3 /* WeatherTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = WeatherTest.json; sourceTree = "<group>"; };
@@ -408,6 +402,7 @@
 		7048EDF521FFE3BA00473E14 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				706DA23021E4651100A39252 /* Extensions */,
 				701964A9220D36540041A472 /* API.swift */,
 				7048EDF621FFE3CF00473E14 /* ActivityIndicator.swift */,
 				7048EDF821FFE58500473E14 /* ErrorTracker.swift */,
@@ -559,15 +554,6 @@
 			path = GIFs;
 			sourceTree = "<group>";
 		};
-		70610C7521E2DC1000D1B1BB /* Realm */ = {
-			isa = PBXGroup;
-			children = (
-				70610C7F21E2F26700D1B1BB /* RealmManager.swift */,
-				706DA23521E5B7BD00A39252 /* Objects */,
-			);
-			path = Realm;
-			sourceTree = "<group>";
-		};
 		706DA23021E4651100A39252 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -589,15 +575,6 @@
 				70C5F56321DF464C0043D9E6 /* LanguageCase.swift */,
 			);
 			path = Enums;
-			sourceTree = "<group>";
-		};
-		706DA23521E5B7BD00A39252 /* Objects */ = {
-			isa = PBXGroup;
-			children = (
-				70610C7321E2DC0A00D1B1BB /* Coordinate.swift */,
-				706DA23C21E5C7E200A39252 /* Degree.swift */,
-			);
-			path = Objects;
 			sourceTree = "<group>";
 		};
 		70C5F53321DF45BC0043D9E6 = {
@@ -634,11 +611,8 @@
 				70C5F53F21DF45BC0043D9E6 /* AppDelegate.swift */,
 				7040DEAB21FEF94400003251 /* Application */,
 				BEFC45B02202DE76004D0796 /* Common */,
-				706DA23121E4652000A39252 /* Enums */,
-				706DA23021E4651100A39252 /* Extensions */,
 				705271F021E700A400CA9495 /* GIFs */,
 				7048EDF021FFE11D00473E14 /* Scenes */,
-				70610C7521E2DC1000D1B1BB /* Realm */,
 				7048EDF521FFE3BA00473E14 /* Utility */,
 				70C5F59021DF55670043D9E6 /* FoldingWeather.entitlements */,
 				70C5F54921DF45BD0043D9E6 /* Assets.xcassets */,
@@ -718,6 +692,7 @@
 		BEFC45B02202DE76004D0796 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				706DA23121E4652000A39252 /* Enums */,
 				7048EDF321FFE15B00473E14 /* ViewModelType.swift */,
 			);
 			path = Common;
@@ -1308,7 +1283,6 @@
 			files = (
 				706DA22F21E464DF00A39252 /* String+LanguageCase.swift in Sources */,
 				BE21DB2C220F0E890021CBB2 /* WeatherViewController.swift in Sources */,
-				706DA23D21E5C7E200A39252 /* Degree.swift in Sources */,
 				70610C8221E3194A00D1B1BB /* WeatherCellInfomation.swift in Sources */,
 				7048EDFB21FFE88200473E14 /* Observable+Ext.swift in Sources */,
 				70C5F57D21DF464C0043D9E6 /* String+IconCase.swift in Sources */,
@@ -1322,11 +1296,9 @@
 				70C5F58621DF464C0043D9E6 /* HourlyWeatherView.swift in Sources */,
 				7048EDF921FFE58500473E14 /* ErrorTracker.swift in Sources */,
 				7048EDF221FFE14100473E14 /* WeatherViewModel.swift in Sources */,
-				70610C8021E2F26700D1B1BB /* RealmManager.swift in Sources */,
 				7048EDF721FFE3CF00473E14 /* ActivityIndicator.swift in Sources */,
 				70610C8621E31C0200D1B1BB /* DeviceCase.swift in Sources */,
 				7040DEAD21FEF95300003251 /* Application.swift in Sources */,
-				70610C7421E2DC0A00D1B1BB /* Coordinate.swift in Sources */,
 				706DA22D21E464C000A39252 /* String+DeviceCase.swift in Sources */,
 				70C5F58721DF464C0043D9E6 /* DailyWeatherView.swift in Sources */,
 				701964AE220D36710041A472 /* SearchViewController.swift in Sources */,

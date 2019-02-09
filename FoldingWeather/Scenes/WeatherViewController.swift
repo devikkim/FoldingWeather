@@ -44,7 +44,7 @@ class WeatherViewController: UIViewController {
                                     selectedFont: UIFont(name: "HelveticaNeue-Bold",
                                                          size: 14.0)!,
                                     selectedTextColor: .white),
-    index: UInt(RealmDegreeManager.shared.select()),
+    index: 0,
     options: [.backgroundColor(.clear),
               .indicatorViewBackgroundColor(.clear)]
   )
