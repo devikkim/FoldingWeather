@@ -571,12 +571,12 @@
 		706DA23021E4651100A39252 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				701964B0220D38FA0041A472 /* UITableView+Rx+Ext.swift */,
+				7048EDFA21FFE88200473E14 /* Observable+Ext.swift */,
 				706DA22C21E464C000A39252 /* String+DeviceCase.swift */,
 				70C5F56521DF464C0043D9E6 /* String+IconCase.swift */,
 				706DA22E21E464DF00A39252 /* String+LanguageCase.swift */,
 				70610C8321E31A8900D1B1BB /* UIDevice+DeviceCase.swift */,
-				7048EDFA21FFE88200473E14 /* Observable+Ext.swift */,
+				701964B0220D38FA0041A472 /* UITableView+Rx+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
