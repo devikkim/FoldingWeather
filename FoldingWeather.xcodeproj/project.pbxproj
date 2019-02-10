@@ -614,11 +614,7 @@
 				705271F021E700A400CA9495 /* GIFs */,
 				7048EDF021FFE11D00473E14 /* Scenes */,
 				7048EDF521FFE3BA00473E14 /* Utility */,
-				70C5F59021DF55670043D9E6 /* FoldingWeather.entitlements */,
-				70C5F54921DF45BD0043D9E6 /* Assets.xcassets */,
-				70C5F54B21DF45BD0043D9E6 /* LaunchScreen.storyboard */,
-				70C5F54E21DF45BD0043D9E6 /* Info.plist */,
-				70C5F54621DF45BC0043D9E6 /* FoldingWeather.xcdatamodeld */,
+				BE21DB2D2210096B0021CBB2 /* Supporting FIles */,
 			);
 			path = FoldingWeather;
 			sourceTree = "<group>";
@@ -687,6 +683,18 @@
 				BEFC455C21FCA4E7004D0796 /* UseCaseProvider.swift */,
 			);
 			path = UseCase;
+			sourceTree = "<group>";
+		};
+		BE21DB2D2210096B0021CBB2 /* Supporting FIles */ = {
+			isa = PBXGroup;
+			children = (
+				70C5F59021DF55670043D9E6 /* FoldingWeather.entitlements */,
+				70C5F54921DF45BD0043D9E6 /* Assets.xcassets */,
+				70C5F54B21DF45BD0043D9E6 /* LaunchScreen.storyboard */,
+				70C5F54E21DF45BD0043D9E6 /* Info.plist */,
+				70C5F54621DF45BC0043D9E6 /* FoldingWeather.xcdatamodeld */,
+			);
+			path = "Supporting FIles";
 			sourceTree = "<group>";
 		};
 		BEFC45B02202DE76004D0796 /* Common */ = {
